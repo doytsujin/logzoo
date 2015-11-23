@@ -1,7 +1,5 @@
 # ohlog
 
-** right now it is not implemented %-) **
-
 Simple logger zoo.
 
 It generates different loggers that all use `console.log()` to output messages,
@@ -9,7 +7,19 @@ however each logger corresponds to some named part of your application (e.g.
 'HTTP', 'Storage', 'Model') and have the same set of levels (e.g 'error', 'warn',
 'info', 'debug').
 
+## Trivial usage example
+
+```javascript
+const log = require('ohlog').get();
+
+// by default log has .error(), .warn(), .info(), and .debug() methods
+log.error('an error message (%d)', 123);
+// same as console.log('[error] an error message (%d)', 123);
+```
+
 ## Example
+
+__ right now it is not implemented %-) __
 
 ```javascript
 // this is app.js

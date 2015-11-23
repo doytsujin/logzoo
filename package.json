@@ -15,5 +15,17 @@
   "bugs": {
     "url": "https://github.com/tutukin/ohlog/issues"
   },
-  "homepage": "https://github.com/tutukin/ohlog#readme"
+  "homepage": "https://github.com/tutukin/ohlog#readme",
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha-test": "^0.12.7",
+    "gruntfile-gtx": "^0.3.0",
+    "mocha": "^2.3.4",
+    "require-directory": "^2.1.1",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
+  }
 }
