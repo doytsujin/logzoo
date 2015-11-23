@@ -2,9 +2,12 @@
   "name": "ohlog",
   "version": "0.0.1",
   "description": "Simple logger zoo",
-  "main": "index.js",
+  "main": "src/ohlog",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt mochaTest"
+  },
+  "engines": {
+      "node": ">=4.1.0"
   },
   "repository": {
     "type": "git",

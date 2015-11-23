@@ -20,4 +20,12 @@ describe('ohlog', () => {
         expect(this.ohlog).to.exist
             .and.to.be.a('function');
     });
+
+    it('should have .get() method', () => {
+        expect(this.ohlog).itself.to.respondTo('get');
+    });
+
+    it('should have .setLogLevel() method', () => {
+        expect(this.ohlog).itself.to.respondTo('setLogLevel');
+    });
 });

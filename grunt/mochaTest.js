@@ -2,7 +2,8 @@
 
 module.exports = {
     options: {
-        reporter: 'nyan'
+        reporter: 'nyan',
+        clearRequireCache: true
     },
 
     test: {

@@ -19,15 +19,15 @@ log.error('an error message (%d)', 123);
 
 ## Example
 
-__ right now it is not implemented %-) __
-
 ```javascript
 // this is app.js
 const ohlog = require('ohlog')(
   'CORE, HTTP, STORAGE, Model',
+  // these are default levels, right now the list is ignored!
   'error, warn, info, debug'
 );
 
+// this is not implemented!
 ohlog.setLogLevel('warn'); // no info and debug
 
 const log = ohlog.get('core');
