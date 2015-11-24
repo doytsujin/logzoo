@@ -1,5 +1,7 @@
 "use strict";
 
+const LOGGERS = {};
+
 const DEFAULT_LEVELS = 'error warn info debug'.split(' ');
 let PLACES = null;
 
@@ -21,14 +23,14 @@ const Log = function (places, levels) {
 };
 
 Log.get = function (place) {
-    place = ensureCorrectPlace(place);
+    place = ensureCorrectPlace(place) || '_default';
 
-    let logger = DEFAULT_LEVELS.reduce( (obj, level) => {
+    LOGGERS[place] = LOGGERS[place] || DEFAULT_LEVELS.reduce( (obj, level) => {
         obj[level] = createMethod(place, level);
         return obj;
     }, {});
 
-    return logger;
+    return LOGGERS[place];
 };
 
 
@@ -63,7 +65,7 @@ function createMethod (place, level) {
         let args = tool.toArray(arguments);
         let template = args.shift();
 
-        let firstArg = typeof place === 'undefined' ?
+        let firstArg = place === '_default' ?
             `[${level}] ${template}` :
             `${place} [${level}] ${template}`;
 

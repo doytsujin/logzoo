@@ -31,6 +31,13 @@ describe('logzoo/defaultLogger', () => {
             });
         });
 
+        it('should return a singleton', () => {
+            let l1 = this.logzoo.get();
+            let l2 = this.logzoo.get();
+
+            expect(l1).to.equal(l2);
+        });
+
         describe('defaultLogger', () => {
             beforeEach( () => {
                 this.log = this.logzoo.get();

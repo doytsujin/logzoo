@@ -70,6 +70,14 @@ describe('logzoo', () => {
             .and.calledWithExactly('STORAGE [warn] abc');
         });
 
+        it('should return the same object for the same name', () => {
+            ['http', 'storage'].forEach( place => {
+                let l1 = this.logzoo.get(place);
+                let l2 = this.logzoo.get(place);
+                expect(l1).to.equal(l2);
+            });
+        });
+
         it('should throw error if undefined place is requested after the places are defined', () => {
             expect( _ => {
                 this.logzoo.get();
