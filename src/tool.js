@@ -11,5 +11,11 @@ module.exports = {
             Array.isArray(list) ?
                 list :
                 undefined;
+    },
+
+    uc: s => {
+        return typeof s === 'string' ?
+            s.toUpperCase() :
+            s;
     }
 };

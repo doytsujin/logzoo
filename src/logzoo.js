@@ -1,67 +1,50 @@
 "use strict";
 
-const LOGGERS = {};
-
-const DEFAULT_LEVELS = 'error warn info debug'.split(' ');
-let PLACES = null;
-
+const Level = require('./Level');
+const Places = require('./Places');
 const tool = require('./tool');
 
-const Log = function (places, levels) {
-    places = tool.ensureArray(places);
-    if ( levels ) console.log('logzoo [warn] levels are not implemented. Default levels are [%s]', DEFAULT_LEVELS.join(', '));
-    if ( PLACES !== null ) throw Error('Places already defined');
-    if ( Array.isArray([places]) ) {
-        PLACES = places.map( $ => $.toUpperCase() );
-        Log.place = PLACES.reduce( (P, place, index) => {
-            P[place] = index;
-            return P;
-        }, {});
+const LOGGERS = {};
 
-    }
+let _places = new Places();
+let _currentLevel = null;
+
+const Log = function (places, levels) {
+    _places.set(places);
+
+    if ( levels ) console.log('logzoo [warn] levels are not implemented.');
+
+    Log.place = _places.names().reduce( (P, place, index) => {
+        P[place] = index;
+        return P;
+    }, {});
+
     return Log;
 };
 
 Log.get = function (place) {
-    place = ensureCorrectPlace(place) || '_default';
+    place = _places.ensureCorrectPlace(place) || '_default';
+    let level = new Level();
+    level.set(_currentLevel);
 
-    LOGGERS[place] = LOGGERS[place] || DEFAULT_LEVELS.reduce( (obj, level) => {
+    LOGGERS[place] = LOGGERS[place] || level.names().reduce( (obj, level) => {
         obj[level] = createMethod(place, level);
         return obj;
-    }, {});
+    }, {
+        _level: level
+    });
 
     return LOGGERS[place];
 };
 
 
 Log.setLogLevel = function (level) {
-    // TODO
-    console.log('logzoo [warn] setLogLevel is not implemented right now');
+    _currentLevel = level;
 };
-
-function ensureCorrectPlace (place) {
-    if ( PLACES !== null ) {
-        let type = typeof place;
-
-        if ( type  === 'undefined' ) throw Error('Please specify the logger');
-
-        if ( type === 'number' ) {
-            if ( place >= PLACES.length || place < 0 )
-                throw Error('The requested logger is undefined');
-            place = PLACES[place];
-        }
-
-        if ( type === 'string' ) {
-            place = place.toUpperCase();
-            if ( PLACES.indexOf(place) < 0 ) throw Error('The requested logger is undefined');
-        }
-    }
-
-    return place;
-}
 
 function createMethod (place, level) {
     return function () {
+        if ( this._level.isTooLow(level) ) return;
         let args = tool.toArray(arguments);
         let template = args.shift();
 
@@ -74,5 +57,6 @@ function createMethod (place, level) {
         console.log.apply(console, args);
     };
 }
+
 
 module.exports = Log;
