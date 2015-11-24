@@ -6,10 +6,10 @@ const sinon = require('sinon');
 
 chai.use(require('sinon-chai'));
 
-describe('ohlog', () => {
+describe('logzoo', () => {
     beforeEach( () => {
         this.consoleLog = sinon.spy(console, 'log');
-        this.ohlog = require('../src/ohlog');
+        this.logzoo = require('../src/logzoo');
     });
 
     afterEach( () => {
@@ -17,15 +17,15 @@ describe('ohlog', () => {
     });
 
     it('should exist and be a function', () => {
-        expect(this.ohlog).to.exist
+        expect(this.logzoo).to.exist
             .and.to.be.a('function');
     });
 
     it('should have .get() method', () => {
-        expect(this.ohlog).itself.to.respondTo('get');
+        expect(this.logzoo).itself.to.respondTo('get');
     });
 
     it('should have .setLogLevel() method', () => {
-        expect(this.ohlog).itself.to.respondTo('setLogLevel');
+        expect(this.logzoo).itself.to.respondTo('setLogLevel');
     });
 });

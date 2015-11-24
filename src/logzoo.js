@@ -7,7 +7,7 @@ const tool = require('./tool');
 
 const Log = function (places, levels) {
     places = tool.ensureArray(places);
-    if ( levels ) console.log('OHLOG [warn] levels are not implemented. Default levels are [%s]', DEFAULT_LEVELS.join(', '));
+    if ( levels ) console.log('logzoo [warn] levels are not implemented. Default levels are [%s]', DEFAULT_LEVELS.join(', '));
     if ( PLACES !== null ) throw Error('Places already defined');
     if ( Array.isArray([places]) ) {
         PLACES = places.map( $ => $.toUpperCase() );
@@ -34,7 +34,7 @@ Log.get = function (place) {
 
 Log.setLogLevel = function (level) {
     // TODO
-    console.log('OHLOG [warn] setLogLevel is not implemented right now');
+    console.log('logzoo [warn] setLogLevel is not implemented right now');
 };
 
 function ensureCorrectPlace (place) {

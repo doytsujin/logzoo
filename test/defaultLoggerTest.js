@@ -6,11 +6,11 @@ const sinon = require('sinon');
 
 chai.use(require('sinon-chai'));
 
-describe('ohlog/defaultLogger', () => {
+describe('logzoo/defaultLogger', () => {
     beforeEach( () => {
         this.oldLog = console.log;
         console.log = sinon.spy();
-        this.ohlog = require('../src/ohlog');
+        this.logzoo = require('../src/logzoo');
     });
 
     afterEach( () => {
@@ -19,11 +19,11 @@ describe('ohlog/defaultLogger', () => {
 
     describe('.get()', () => {
         it('should be a function', () => {
-            expect(this.ohlog).itself.to.respondTo('get');
+            expect(this.logzoo).itself.to.respondTo('get');
         });
 
         it('should return a default logger', () => {
-            let logger = this.ohlog.get();
+            let logger = this.logzoo.get();
 
             'error warn info debug'.split(' ')
             .forEach(method => {
@@ -33,7 +33,7 @@ describe('ohlog/defaultLogger', () => {
 
         describe('defaultLogger', () => {
             beforeEach( () => {
-                this.log = this.ohlog.get();
+                this.log = this.logzoo.get();
             });
 
             let loggingMethodOK = (methodName) => {

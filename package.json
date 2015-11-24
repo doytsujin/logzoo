@@ -1,8 +1,8 @@
 {
-  "name": "ohlog",
+  "name": "logzoo",
   "version": "0.0.1",
   "description": "Simple logger zoo",
-  "main": "src/ohlog",
+  "main": "src/logzoo",
   "scripts": {
     "test": "grunt mochaTest"
   },
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tutukin/ohlog.git"
+    "url": "git+https://github.com/tutukin/logzoo.git"
   },
   "author": "Andrei V. Toutoukine <toutoukine@gmail.com> (https://www.npmjs.com/~tutukin)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tutukin/ohlog/issues"
+    "url": "https://github.com/tutukin/logzoo/issues"
   },
-  "homepage": "https://github.com/tutukin/ohlog#readme",
+  "homepage": "https://github.com/tutukin/logzoo#readme",
   "devDependencies": {
     "chai": "^3.4.1",
     "grunt": "^0.4.5",

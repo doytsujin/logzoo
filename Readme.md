@@ -1,4 +1,4 @@
-# ohlog
+# logzoo
 
 Simple logger zoo.
 
@@ -10,7 +10,7 @@ however each logger corresponds to some named part of your application (e.g.
 ## Trivial usage example
 
 ```javascript
-const log = require('ohlog').get();
+const log = require('logzoo').get();
 
 // by default log has .error(), .warn(), .info(), and .debug() methods
 log.error('an error message (%d)', 123);
@@ -21,24 +21,24 @@ log.error('an error message (%d)', 123);
 
 ```javascript
 // this is app.js
-const ohlog = require('ohlog')(
+const logzoo = require('logzoo')(
   'CORE, HTTP, STORAGE, Model',
   // these are default levels, right now the list is ignored!
   'error, warn, info, debug'
 );
 
 // this is not implemented!
-ohlog.setLogLevel('warn'); // no info and debug
+logzoo.setLogLevel('warn'); // no info and debug
 
-const log = ohlog.get('core');
+const log = logzoo.get('core');
 
-log.info('Ohlog looks fine: %j', ohlog); // skipped since log level
+log.info('logzoo looks fine: %j', logzoo); // skipped since log level
 log.warn('Some useless warning'); // console.log('CORE [warn] Some useless warning');
 ```
 
 ```javascript
 // this is http.js
-const log = require('ohlog').get('http');
+const log = require('logzoo').get('http');
 
 log.error('connection is not established!');// console.log('HTTP [error] connection is not established');
 ```

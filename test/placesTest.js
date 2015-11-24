@@ -6,36 +6,36 @@ const sinon = require('sinon');
 
 chai.use(require('sinon-chai'));
 
-describe('ohlog', () => {
+describe('logzoo', () => {
     beforeEach( () => {
         this.oldLog = console.log;
         console.log = sinon.spy();
-        this.ohlog = require('../src/ohlog');
+        this.logzoo = require('../src/logzoo');
     });
 
     afterEach( () => {
         console.log = this.oldLog;
-        delete require.cache[ require.resolve('../src/ohlog') ];
+        delete require.cache[ require.resolve('../src/logzoo') ];
     });
 
     it('should define places and return self for chaining', () => {
         let places = ['http', 'storage'];
-        let self = this.ohlog(places);
+        let self = this.logzoo(places);
 
-        expect(self).to.equal(this.ohlog);
-        expect(this.ohlog).to.have.property('place')
+        expect(self).to.equal(this.logzoo);
+        expect(this.logzoo).to.have.property('place')
             .that.is.an('object');
-        expect(this.ohlog.place).to.have.property('HTTP');
-        expect(this.ohlog.place).to.have.property('STORAGE')
-            .that.not.equals(this.ohlog.place.HTTP);
+        expect(this.logzoo.place).to.have.property('HTTP');
+        expect(this.logzoo.place).to.have.property('STORAGE')
+            .that.not.equals(this.logzoo.place.HTTP);
     });
 
     it('should throw an error if a user tries to redefine places', () => {
         let places = ['http', 'storage'];
-        let self = this.ohlog(places);
+        let self = this.logzoo(places);
 
         expect( () => {
-            this.ohlog(places);
+            this.logzoo(places);
         }).to.throw(Error)
         .that.has.property('message')
         .that.includes('defined');
@@ -43,12 +43,12 @@ describe('ohlog', () => {
 
     describe('placed loggers', () => {
         beforeEach( () => {
-            this.ohlog(['http', 'storage']);
+            this.logzoo(['http', 'storage']);
         });
 
         it('should prepend place to log message', () => {
-            let logHTTP = this.ohlog.get(this.ohlog.place.HTTP);
-            let logSTORAGE = this.ohlog.get(this.ohlog.place.STORAGE);
+            let logHTTP = this.logzoo.get(this.logzoo.place.HTTP);
+            let logSTORAGE = this.logzoo.get(this.logzoo.place.STORAGE);
 
             logHTTP.info('xyz');
             logSTORAGE.warn('abc');
@@ -59,8 +59,8 @@ describe('ohlog', () => {
         });
 
         it('should recognize loggers by name', () => {
-            let logHTTP = this.ohlog.get('http');
-            let logSTORAGE = this.ohlog.get('storage');
+            let logHTTP = this.logzoo.get('http');
+            let logSTORAGE = this.logzoo.get('storage');
 
             logHTTP.info('xyz');
             logSTORAGE.warn('abc');
@@ -72,17 +72,17 @@ describe('ohlog', () => {
 
         it('should throw error if undefined place is requested after the places are defined', () => {
             expect( _ => {
-                this.ohlog.get();
+                this.logzoo.get();
             }).to.throw('specify the logger');
         });
 
         it('should throw error if unknown logger is requested', () => {
             expect( () => {
-                this.ohlog.get('undefined_place');
+                this.logzoo.get('undefined_place');
             }).to.throw('logger is undefined');
 
             expect( () => {
-                this.ohlog.get(100500);
+                this.logzoo.get(100500);
             }).to.throw('logger is undefined');
         });
     });
@@ -90,23 +90,23 @@ describe('ohlog', () => {
 
     describe('places defined as string', () => {
         it('should understand space separated list', () => {
-            this.ohlog('a b');
-            expect(this.ohlog.place.A).to.exist;
-            expect(this.ohlog.place.B).to.exist;
+            this.logzoo('a b');
+            expect(this.logzoo.place.A).to.exist;
+            expect(this.logzoo.place.B).to.exist;
         });
 
         it('should understand space/comma separated list', () => {
-            this.ohlog('a, b,c');
-            expect(this.ohlog.place.A).to.exist;
-            expect(this.ohlog.place.B).to.exist;
-            expect(this.ohlog.place.C).to.exist;
+            this.logzoo('a, b,c');
+            expect(this.logzoo.place.A).to.exist;
+            expect(this.logzoo.place.B).to.exist;
+            expect(this.logzoo.place.C).to.exist;
         });
 
         it('should understand space/semicolumn separated list', () => {
-            this.ohlog('a; b;c');
-            expect(this.ohlog.place.A).to.exist;
-            expect(this.ohlog.place.B).to.exist;
-            expect(this.ohlog.place.C).to.exist;
+            this.logzoo('a; b;c');
+            expect(this.logzoo.place.A).to.exist;
+            expect(this.logzoo.place.B).to.exist;
+            expect(this.logzoo.place.C).to.exist;
         });
     });
 });
