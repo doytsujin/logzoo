@@ -27,7 +27,6 @@ const logzoo = require('logzoo')(
   'error, warn, info, debug'
 );
 
-// this is not implemented!
 logzoo.setLogLevel('warn'); // no info and debug
 
 const log = logzoo.get('core');
